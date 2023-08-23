@@ -12,18 +12,31 @@
 			<div class="title">Все букеты</div>
 			<div class="catalog__block">
 				<div class="catalog_wrap recommended__elems ficb recommended__elems_first">
-				{% for bouquet in bouquets %}
-					<a href="{% url 'card' %}" class="catalog__item recommended__block" style="background-image: url({{bouquet.image.url}})">
+				{% for flower in flowers %}
+					<a href="{% url 'card' %}" class="catalog__item recommended__block" style="background-image: url({{flower.image.url}})">
 						<div class="catalog__item_text recommended__block_elems ficb">
-							<span class="recommended__block_intro">{{bouquet.title}}</span>
-							<span class="recommended__block_price">{{bouquet.price}}</span>
+							<span class="recommended__block_intro">{{flower.title}}</span>
+							<span class="recommended__block_price">{{flower.price}}</span>
 						</div>
 					</a>
 				{% endfor %}
 
 				</div>
+				<div class="pagination">
+					<span class="step-links">
+						{% if flowers.has_previous %}
+							<a href="?page=1">
+								<button class="btn largeBtn catalog__btn">&laquo; В начало</button>
+							</a>
+						{% endif %}
 
-				<button class="btn largeBtn catalog__btn">Показать ещё</button>
+						{% if flowers.has_next %}
+							<a href="?page={{ flowers.next_page_number }}">
+								<button class="btn largeBtn catalog__btn">Показать еще &raquo;</button>
+							</a>
+						{% endif %}
+					</span>
+				</div>
 			</div>
 		</div>
 	</div>
