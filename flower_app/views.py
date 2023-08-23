@@ -3,10 +3,13 @@ from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
 from .models import Bouquet
 
 def index(request):
+    flowers = Bouquet.objects.order_by('?')[:3]
     context = {
-        'is_index_page': True
+        'is_index_page': True,
+        'flowers': flowers
     }
     return render(request, 'index.html', context)
+
 
 def catalog_api(request):
     flower_list = Bouquet.objects.all()
