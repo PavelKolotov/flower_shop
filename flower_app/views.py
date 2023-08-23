@@ -29,5 +29,12 @@ def catalog_api(request):
     )
 
 
-def card(request):
-    return render(request, 'card.html')
+def card(request, id):
+    flower = Bouquet.objects.get(id=id)
+    return render(
+        request,
+        template_name='card.html',
+        context={
+            'flower': flower
+        }
+    )

@@ -33,7 +33,7 @@ class BouquetOrderAdmin(admin.ModelAdmin):
 
 @admin.register(models.Bouquet)
 class BouquetAdmin(admin.ModelAdmin):
-    fields = ['title', 'price', 'composition', 'description', 'image', 'assortment', 'reason']
+    fields = ['title', 'price', 'composition', 'size', 'description', 'image', 'assortment', 'reason']
     list_display = ['title', 'price', 'reason', 'assortment']
     list_filter = ['reason__title',]
 

@@ -13,10 +13,10 @@
 			<div class="catalog__block">
 				<div class="catalog_wrap recommended__elems ficb recommended__elems_first">
 				{% for flower in flowers %}
-					<a href="{% url 'card' %}" class="catalog__item recommended__block" style="background-image: url({{flower.image.url}})">
+					<a href="{% url 'card' id=flower.id %}" class="catalog__item recommended__block" style="background-image: url({{flower.image.url}})">
 						<div class="catalog__item_text recommended__block_elems ficb">
 							<span class="recommended__block_intro">{{flower.title}}</span>
-							<span class="recommended__block_price">{{flower.price}}</span>
+							<span class="recommended__block_price">{{flower.price|floatformat:0}} руб</span>
 						</div>
 					</a>
 				{% endfor %}
@@ -49,6 +49,10 @@
 				<input type="text" name="fname" class="consultation__form_input" placeholder="Введите Имя" required>
 				<input type="text" name="tel" class="consultation__form_input" placeholder="+ 7 (999) 000 00 00" required>
 				<button type="submit" class="consultation__form_btn">Отправить</button>
+				<div class="chekbox fic">
+					<input type="checkbox" class="singUpConsultation__ckekbox" checked required>
+					<span style="color: black;" class="chekbox__intro">Я согласен(а) с политикой конфидециоальности</span>
+				</div>
 			</form>
 		</div>
 	</div>
