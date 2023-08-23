@@ -6,7 +6,7 @@ from phonenumber_field.modelfields import PhoneNumberField
 
 class Reason(models.Model):
     title = models.CharField('Повод', max_length=50)
-    description = models.TextField('Описание')
+    description = models.TextField('Описание', blank=True, null=True)
 
     def __str__(self):
         return self.title
@@ -19,7 +19,8 @@ class Reason(models.Model):
 class Bouquet(models.Model):
     title = models.CharField('Название', max_length=100, null=True)
     price = models.FloatField('Цена')
-    composition = models.CharField('Состав', max_length=300)
+    composition = models.TextField('Состав')
+    description = models.TextField('Описание', blank=True, null=True)
     image = models.ImageField('Картинка', blank=True, null=True)
     assortment = models.BooleanField('В наличии', default=True)
     reason = models.ForeignKey('Reason', on_delete=models.CASCADE)
