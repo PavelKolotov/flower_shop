@@ -25,7 +25,7 @@ class Bouquet(models.Model):
     description = HTMLField('Описание', blank=True, null=True)
     image = models.ImageField('Картинка', blank=True, null=True)
     assortment = models.BooleanField('В наличии', default=True)
-    reason = models.ForeignKey('Reason', on_delete=models.CASCADE)
+    reason = models.ForeignKey('Reason', on_delete=models.CASCADE, related_name='bouquets')
 
     def __str__(self):
         return self.title
@@ -62,8 +62,17 @@ class Client(models.Model):
 
 
 class BouquetOrder(models.Model):
-    bouquet = models.ForeignKey('Bouquet', on_delete=models.SET_NULL, null=True)
-    order = models.ForeignKey('Order', on_delete=models.CASCADE)
+    bouquet = models.ForeignKey(
+        'Bouquet',
+        on_delete=models.SET_NULL,
+        null=True,
+        related_name='bouquet_orders',
+    )
+    order = models.ForeignKey(
+        'Order',
+        on_delete=models.CASCADE,
+        related_name='bouquet_orders',
+    )
     quantity = models.PositiveIntegerField('Количество')
 
 
@@ -81,6 +90,14 @@ class Order(models.Model):
     )
     date = models.DateTimeField()
     status = models.BooleanField('Выполнено', default=False)
+    staff = models.ForeignKey(
+        'Staff',
+        verbose_name='Флорист',
+        related_name='orders',
+        on_delete=models.SET_NULL,
+        null=True,
+        blank=True,
+    )
 
     def __str__(self):
         return f'Заказ №{self.id}'

@@ -46,8 +46,8 @@ class ReasonAdmin(admin.ModelAdmin):
 
 @admin.register(models.Order)
 class OrderAdmin(admin.ModelAdmin):
-    fields = ['client', 'status', 'date']
+    fields = ['client', 'status', 'date', 'staff']
     inlines = [BouquetOrderInline,]
     search_fields = ['client__id',]
-    list_filter = ['date', 'status']
+    list_filter = ['date', 'status', 'staff']
     list_display = ['client_id', 'id', 'status', 'date']
