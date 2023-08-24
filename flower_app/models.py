@@ -62,6 +62,7 @@ class Staff(models.Model):
 class Client(models.Model):
     name = models.CharField('ФИО', max_length=200)
     phone = PhoneNumberField('Телефон', unique=True, null=True)
+    address = models.CharField('Адрес', max_length=200, null=True, blank=True,)
 
     def __str__(self):
         return f'{self.phone} {self.name}'

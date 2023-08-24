@@ -26,4 +26,5 @@ urlpatterns = [
     path('catalog/', views.catalog_api, name='catalog'),
     path('card/<int:id>/', views.card, name='card'),
     path('order/<int:id>/', views.order, name='order'),
+    path('order_result/<int:id>/', views.order_result, name='order_result')
 ] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

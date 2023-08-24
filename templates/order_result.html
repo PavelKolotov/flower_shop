@@ -1,0 +1,60 @@
+{% extends "layout.html" %}
+{% load static %}
+
+{% block title %}
+Информация о заказе № {{ order.id }} Flower Shop
+{% endblock title %}
+
+{% block content %}
+<section id="orderStep">
+    <div class="container">
+        <div class="order orderStep">
+            <div class="order__block">
+                <div class="order_items">
+                    <div style="text-align: center" class="title">Информация о заказе:</div>
+
+                    <div class="order-details-container">
+                        <div class="order-item">
+                            <strong>Номер заказа:</strong>
+                            <span>{{ order.id }}</span>
+                        </div>
+                        <div class="order-item">
+                            <strong>Название букета:</strong>
+                            <span>{{ flower.title }}</span>
+                        </div>
+                        <div class="order-item">
+                            <strong>Цена:</strong>
+                            <span>{{ flower.price|floatformat:0 }} руб</span>
+                        </div>
+                        <div class="order-item">
+                            <strong>Имя клиента:</strong>
+                            <span>{{ order.client.name }}</span>
+                        </div>
+                        <div class="order-item">
+                            <strong>Телефон:</strong>
+                            <span>{{ order.client.phone }}</span>
+                        </div>
+                        <div class="order-item">
+                            <strong>Адрес:</strong>
+                            <span>{{ order.client.address }}</span>
+                        </div>
+                        <div class="order-item">
+                            <strong>Время доставки:</strong>
+                            <span>{{ order.delivery_time_slot }}</span>
+                        </div>
+                    </div>
+
+
+                    <div class="order__form_line"></div>
+                    <div class="order__form_btns ficb">
+                        <a class="btn order__form_btn button-link" href="{% url 'index' %}">Вернуться на главную
+                            страницу</a>
+                        <a class="btn order__form_btn button-link" href="{% url 'catalog' %}">Каталог</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <img src="{% static 'img/orderImg.jpg' %}" alt="orderImg" class="order__img">
+</section>
+{% endblock content %}

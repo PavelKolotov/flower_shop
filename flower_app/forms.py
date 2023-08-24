@@ -1,16 +1,42 @@
 from django import forms
-from .models import Order
 from django.core.validators import RegexValidator
+from .models import Order, DeliveryTimeSlot
+
 
 phone_regex = RegexValidator(
-    regex=r'^\+?1?\d{9,15}$',
-    message="Номер телефона должен быть введен в формате: '+79999999999'. Максимум 15 знаков разрешено."
+    regex=r'^(8|\+7)\d{10}$',
+    message='Телефонный номер введен некорректно'
 )
 
-
 class OrderForm(forms.ModelForm):
-    tel = forms.CharField(validators=[phone_regex], max_length=17)
+    fname = forms.CharField(
+        widget=forms.TextInput(attrs={
+            'class': 'order__form_input',
+            'placeholder': 'Введите Имя'
+        })
+    )
+    tel = forms.CharField(
+        validators=[phone_regex],
+        widget=forms.TextInput(attrs={
+            'class': 'order__form_input',
+            'placeholder': '+ 7 (999) 000 00 00'
+        }),
+        error_messages={
+            'invalid': 'Телефонный номер введен некорректно'
+        }
+    )
+    adres = forms.CharField(
+        widget=forms.TextInput(attrs={
+            'class': 'order__form_input',
+            'placeholder': 'Адрес доставки'
+        })
+    )
+    orderTime = forms.ModelChoiceField(
+        queryset=DeliveryTimeSlot.objects.all(),
+        widget=forms.RadioSelect(attrs={'class': 'order__form_radio'}),
+        required=True
+    )
 
     class Meta:
         model = Order
-        fields = ['client', 'status', 'date', 'staff', 'delivery_time_slot', 'tel']
+        fields = ['fname', 'tel', 'adres', 'orderTime']

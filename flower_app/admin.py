@@ -9,8 +9,8 @@ class BouquetOrderInline(admin.TabularInline):
 
 @admin.register(models.Client)
 class ClientAdmin(admin.ModelAdmin):
-    fields = ['name', 'phone']
-    list_display = ['name', 'phone']
+    fields = ['name', 'phone', 'address']
+    list_display = ['name', 'phone', 'address']
 
 
 @admin.register(models.Staff)

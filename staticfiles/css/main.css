@@ -31,6 +31,54 @@ input::placeholder {
 	color: rgba(0, 0, 0, .3);
 }
 
+.button-link {
+    text-align: center;
+    text-decoration: none;
+    padding-top: 20px;
+}
+
+.errorlist {
+    color: red;
+    font-size: 12px;
+    list-style: none;
+    margin-top: 5px;
+}
+
+.order-details-container {
+    width: 80%;
+    margin: 50px auto;
+    border: 1px solid #e0e0e0;
+    border-radius: 5px;
+    box-shadow: 0px 0px 10px rgba(0,0,0,0.1);
+    padding: 20px;
+    background-color: #f7f7f7;
+}
+
+.order-details-container h2 {
+    text-align: center;
+    margin-bottom: 20px;
+}
+
+.order-item {
+    display: flex;
+    justify-content: space-between;
+    padding: 10px 0;
+    border-bottom: 1px dashed #e0e0e0;
+}
+
+.order-item:last-child {
+    border-bottom: none;
+}
+
+.order-item strong {
+    flex: 0 0 50%;
+    color: #555;
+}
+
+.order-item span {
+    flex: 0 0 50%;
+    text-align: right;
+}
 
 .container {
 	max-width: 1215px;
@@ -614,6 +662,7 @@ height: 57px;
 }
 .order__form_block {
 	margin-bottom: 30px;
+	align-items: start;
 }
 .order__form_input {
 	width: 240px;
