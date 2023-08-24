@@ -1,8 +1,7 @@
 from django.db import models
 from phonenumber_field.modelfields import PhoneNumberField
 from tinymce.models import HTMLField
-
-# Create your models here.
+from django.utils import timezone
 
 
 class Reason(models.Model):
@@ -15,6 +14,17 @@ class Reason(models.Model):
     class Meta:
         verbose_name_plural = 'Повод'
         verbose_name = 'Повод'
+
+
+class DeliveryTimeSlot(models.Model):
+    title = models.CharField('Временной интервал', max_length=50)
+
+    def __str__(self):
+        return self.title
+
+    class Meta:
+        verbose_name_plural = 'Временные интервалы'
+        verbose_name = 'Временной интервал'
 
 
 class Bouquet(models.Model):
@@ -88,7 +98,7 @@ class Order(models.Model):
         through=BouquetOrder,
         related_name='orders'
     )
-    date = models.DateTimeField()
+    date = models.DateTimeField('Дата', default=timezone.now)
     status = models.BooleanField('Выполнено', default=False)
     staff = models.ForeignKey(
         'Staff',
@@ -98,6 +108,12 @@ class Order(models.Model):
         null=True,
         blank=True,
     )
+    delivery_time_slot = models.ForeignKey(
+        'DeliveryTimeSlot',
+        verbose_name='Временной интервал',
+        related_name='delivery_orders',
+        on_delete=models.CASCADE,
+        null=True)
 
     def __str__(self):
         return f'Заказ №{self.id}'

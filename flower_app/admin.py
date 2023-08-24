@@ -1,8 +1,5 @@
 from django.contrib import admin
-
 from flower_app import models
-
-# Register your models here.
 
 
 class BouquetOrderInline(admin.TabularInline):
@@ -41,13 +38,19 @@ class BouquetAdmin(admin.ModelAdmin):
 @admin.register(models.Reason)
 class ReasonAdmin(admin.ModelAdmin):
     fields = ['title', 'description']
-    list_display = ['title',]
+    list_display = ['title', ]
+
+
+@admin.register(models.DeliveryTimeSlot)
+class DeliveryTimeSlotAdmin(admin.ModelAdmin):
+    fields = ['title', ]
+    list_display = ['title', ]
 
 
 @admin.register(models.Order)
 class OrderAdmin(admin.ModelAdmin):
-    fields = ['client', 'status', 'date', 'staff']
-    inlines = [BouquetOrderInline,]
+    fields = ['client', 'status', 'date', 'staff', 'delivery_time_slot']
+    inlines = [BouquetOrderInline]
     search_fields = ['client__id',]
     list_filter = ['date', 'status', 'staff']
     list_display = ['client_id', 'id', 'status', 'date']

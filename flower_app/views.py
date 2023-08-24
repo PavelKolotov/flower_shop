@@ -1,6 +1,6 @@
 from django.shortcuts import render
 from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
-from .models import Bouquet
+from .models import Bouquet, DeliveryTimeSlot, Client, Order
 
 def index(request):
     flowers = Bouquet.objects.order_by('?')[:3]
@@ -39,5 +39,18 @@ def card(request, id):
         template_name='card.html',
         context={
             'flower': flower
+        }
+    )
+
+
+def order(request, id):
+    flower = Bouquet.objects.get(id=id)
+    time_slots = DeliveryTimeSlot.objects.all()
+    return render(
+        request,
+        template_name='order.html',
+        context={
+            'flower': flower,
+            'time_slots': time_slots,
         }
     )

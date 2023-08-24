@@ -43,7 +43,9 @@
                         </span>
                     </div>
                 </div>
-                <button class="btn largeBtn card__btn">Заказать букет</button>
+                <a href="{% url 'order' id=flower.id %}">
+                    <button class="btn largeBtn card__btn">Заказать букет</button>
+                </a>
             </div>
         </div>
     </div>
