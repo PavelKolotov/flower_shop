@@ -12,7 +12,7 @@ def index(request):
 
 
 def catalog_api(request):
-    flower_list = Bouquet.objects.all()
+    flower_list = Bouquet.objects.filter(assortment=True)
     paginator = Paginator(flower_list, 6)
 
     page = request.GET.get('page')
