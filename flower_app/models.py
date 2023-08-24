@@ -1,12 +1,13 @@
 from django.db import models
 from phonenumber_field.modelfields import PhoneNumberField
+from tinymce.models import HTMLField
 
 # Create your models here.
 
 
 class Reason(models.Model):
     title = models.CharField('Повод', max_length=50)
-    description = models.TextField('Описание', blank=True, null=True)
+    description = HTMLField('Описание', blank=True, null=True)
 
     def __str__(self):
         return self.title
@@ -19,9 +20,9 @@ class Reason(models.Model):
 class Bouquet(models.Model):
     title = models.CharField('Название', max_length=100, null=True)
     price = models.FloatField('Цена')
-    composition = models.TextField('Состав')
+    composition = HTMLField('Состав')
     size = models.CharField('Размер', max_length=100, blank=True, null=True)
-    description = models.TextField('Описание', blank=True, null=True)
+    description = HTMLField('Описание', blank=True, null=True)
     image = models.ImageField('Картинка', blank=True, null=True)
     assortment = models.BooleanField('В наличии', default=True)
     reason = models.ForeignKey('Reason', on_delete=models.CASCADE)

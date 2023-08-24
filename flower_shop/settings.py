@@ -27,6 +27,7 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     'flower_app.apps.FlowerAppConfig',
     'phonenumber_field',
+    'tinymce',
 ]
 
 MIDDLEWARE = [
