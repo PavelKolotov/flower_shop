@@ -2,7 +2,7 @@
 {% load static %}
 
 {% block title %}
-Букет (Вставить название из БД) - Магазин цветов FlowerShop
+Букет {{ flower.title }} - Магазин цветов FlowerShop
 {% endblock title %}
 
 {% block content %}
@@ -19,7 +19,9 @@
                     <span class="card__elems_intro">Состав:</span>
                     <div class="card__items">
                         <span class="card_items_intro">
-                            {{flower.composition}}
+                            {% autoescape off %}
+                                {{ flower.composition }}
+                            {% endautoescape %}
                         </span>
                     </div>
                 </div>
@@ -35,7 +37,9 @@
                     <span class="card__elems_intro">Описание:</span>
                     <div class="card__items">
                         <span class="card_items_intro">
-                            {{flower.description}}
+                            {% autoescape off %}
+                                {{flower.description}}
+                            {% endautoescape %}
                         </span>
                     </div>
                 </div>
