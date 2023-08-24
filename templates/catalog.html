@@ -11,7 +11,7 @@
 		<div class="catalog">
 			<div class="title">Все букеты</div>
 			<div class="catalog__block">
-				<div class="catalog_wrap recommended__elems ficb recommended__elems_first">
+				<div class="catalog__wrap recommended__elems recommended__elems_first">
 				{% for flower in flowers %}
 					<a href="{% url 'card' id=flower.id %}" class="catalog__item recommended__block" style="background-image: url({{flower.image.url}})">
 						<div class="catalog__item_text recommended__block_elems ficb">
@@ -32,7 +32,7 @@
 
 						{% if flowers.has_next %}
 							<a href="?page={{ flowers.next_page_number }}">
-								<button class="btn largeBtn catalog__btn">Показать еще &raquo;</button>
+								<button class="btn largeBtn catalog__btn">Следующая страница &raquo;</button>
 							</a>
 						{% endif %}
 					</span>

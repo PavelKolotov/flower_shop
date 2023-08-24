@@ -349,10 +349,11 @@ opacity: 0.3;
 .recommended__elems_sec .recommended__block_sec {
 	background: url('../img/catalog/catalogBg4.jpg') no-repeat center bottom / cover;
 }
-.catalog_wrap {
+.catalog__wrap {
     flex-wrap: wrap;
     flex-basis: 300px;
     margin: 0 -0.5%;
+    display: flex;
 }
 .catalog__item {
     display: block;

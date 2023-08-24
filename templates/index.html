@@ -26,7 +26,7 @@ Flower Shop
 	<div class="container">
 		<div class="recommended p100">
 			<div class="title" id="step1">Рекомендуем</div>
-			<div class="catalog_wrap recommended__elems ficb recommended__elems_first">
+			<div class="catalog__fitwrap recommended__elems ficb recommended__elems_first">
 				{% for flower in flowers %}
 					<a href="{% url 'card' id=flower.id %}" class="catalog__item recommended__block" style="background-image: url({{flower.image.url}})">
 						<div class="catalog__item_text recommended__block_elems ficb">
