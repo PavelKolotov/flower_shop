@@ -24,6 +24,7 @@ urlpatterns = [
     path('admin/', admin.site.urls),
     path('', views.index, name='index'),
     path('catalog/', views.catalog_api, name='catalog'),
+    path('catalog/<str:reason>/', views.catalog_sorted, name='catalog_sorted'),
     path('card/<int:id>/', views.card, name='card'),
     path('order/<int:id>/', views.order, name='order'),
     path('order_result/<int:id>/', views.order_result, name='order_result')

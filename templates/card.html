@@ -16,6 +16,12 @@
                 <div class="title">{{flower.title}}</div>
                 <div class="card__block_price">{{flower.price|floatformat:0}} руб</div>
                 <div class="card__elems ">
+                    <span class="card__elems_intro">Повод:</span>
+                    <div class="card__items">
+                        <span class="card_items_intro">{{ flower.reason }}</span>
+                    </div>
+                </div>
+                <div class="card__elems ">
                     <span class="card__elems_intro">Состав:</span>
                     <div class="card__items">
                         <span class="card_items_intro">

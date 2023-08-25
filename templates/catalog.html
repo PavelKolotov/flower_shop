@@ -8,6 +8,15 @@
 {% block content %}
 <section id="catalog">
 	<div class="container p100">
+		<div class="title">Категории</div>
+		<div>
+			{% for reason in reasons %}
+				<a href="{% url 'catalog_sorted' reason=reason.title %}">
+					<button class="btn smallBtn catalog__btn"> {{ reason.title }} </button>
+				</a>
+			{% endfor %}
+		</div>
+		<br>
 		<div class="catalog">
 			<div class="title">Все букеты</div>
 			<div class="catalog__block">
