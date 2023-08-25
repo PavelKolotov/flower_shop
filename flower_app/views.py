@@ -62,6 +62,8 @@ def order(request, id):
             order = form.save(commit=False)
             order.client = client
             order.delivery_time_slot = form.cleaned_data['orderTime']
+            client.name = name
+            client.save()
             order.save()
 
             # Создаем заказ букета
