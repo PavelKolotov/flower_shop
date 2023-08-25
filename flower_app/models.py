@@ -116,6 +116,8 @@ class Order(models.Model):
         on_delete=models.CASCADE,
         null=True)
 
+    delivery_address = models.CharField('Адрес доставки', max_length=200, null=True, blank=True,)
+
     def __str__(self):
         return f'Заказ №{self.id}'
 

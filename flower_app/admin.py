@@ -49,8 +49,9 @@ class DeliveryTimeSlotAdmin(admin.ModelAdmin):
 
 @admin.register(models.Order)
 class OrderAdmin(admin.ModelAdmin):
-    fields = ['client', 'status', 'date', 'staff', 'delivery_time_slot']
+    fields = ['client', 'status', 'date', 'staff', 'delivery_time_slot', 'delivery_address']
     inlines = [BouquetOrderInline]
     search_fields = ['client__id',]
+    search_help_text = 'Поиск по id клиента'
     list_filter = ['date', 'status', 'staff']
     list_display = ['client_id', 'id', 'status', 'date']

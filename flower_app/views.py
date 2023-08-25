@@ -62,8 +62,8 @@ def order(request, id):
             order = form.save(commit=False)
             order.client = client
             order.delivery_time_slot = form.cleaned_data['orderTime']
+            order.delivery_address = address
             client.name = name
-            client.address = address
             client.save()
             order.save()
 
