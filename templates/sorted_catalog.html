@@ -7,15 +7,12 @@
 
 {% block content %}
 <section id="catalog">
-	<div class="container p100">
+	<div class="container p50">
 		<div class="catalog">
-			<div class="title">{{ reason.title }}</div>
+			<div class="title">{{ reason }}</div>
 			<div class="catalog__block">
 				{% if not flowers %}
 					<div class="title">Нет в наличии</div>
-					<a href="{% url 'catalog' %}">
-						<button class="btn banner__btn"> Назад </button>
-					</a>
 				{% endif %}
 				<div class="catalog__wrap recommended__elems recommended__elems_first">
 				{% for flower in flowers %}
@@ -26,7 +23,11 @@
 						</div>
 					</a>
 				{% endfor %}
-
+				</div>
+				<div class="p50">
+					<a href="{% url 'catalog' %}">
+						<button class="btn banner__btn"> Назад </button>
+					</a>
 				</div>
 				<div class="pagination">
 					<span class="step-links">

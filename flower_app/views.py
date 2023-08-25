@@ -51,7 +51,8 @@ def catalog_sorted(request, reason):
         request,
         template_name='sorted_catalog.html',
         context={
-            'flowers': flowers
+            'flowers': flowers,
+            'reason': reason
         }
     )
 
