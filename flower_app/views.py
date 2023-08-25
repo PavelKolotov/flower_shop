@@ -63,6 +63,7 @@ def order(request, id):
             order.client = client
             order.delivery_time_slot = form.cleaned_data['orderTime']
             client.name = name
+            client.address = address
             client.save()
             order.save()
 
