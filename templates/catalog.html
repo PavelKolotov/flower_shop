@@ -11,7 +11,7 @@
 		<div class="title">Категории</div>
 		<div class="categories">
 			{% for reason in reasons %}
-			<a class="categories__item categories__item--{{ reason.id }}" href="{% url 'catalog_sorted' reason=reason.title %}">
+			<a class="categories__item categories__item--{{ reason.id|make_list|last }}" href="{% url 'catalog_sorted' reason=reason.title %}">
 				{{ reason.title }}
 			</a>
 			{% endfor %}
