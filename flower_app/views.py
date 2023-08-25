@@ -1,6 +1,6 @@
 from django.shortcuts import render, redirect, get_object_or_404
 from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
-from .models import Bouquet, DeliveryTimeSlot, Client, Order, BouquetOrder
+from .models import Bouquet, DeliveryTimeSlot, Client, Order, BouquetOrder, Reason
 from .forms import OrderForm
 
 def index(request):
@@ -14,6 +14,7 @@ def index(request):
 
 def catalog_api(request):
     flower_list = Bouquet.objects.filter(assortment=True)
+    reasons = Reason.objects.all()
     paginator = Paginator(flower_list, 6)
 
     page = request.GET.get('page')
@@ -27,6 +28,28 @@ def catalog_api(request):
     return render(
         request,
         template_name='catalog.html',
+        context={
+            'flowers': flowers,
+            'reasons': reasons,
+        }
+    )
+
+
+def catalog_sorted(request, reason):
+    flower_list = Bouquet.objects.filter(assortment=True, reason__title=reason)
+    paginator = Paginator(flower_list, 12)
+
+    page = request.GET.get('page')
+    try:
+        flowers = paginator.page(page)
+    except PageNotAnInteger:
+        flowers = paginator.page(1)
+    except EmptyPage:
+        flowers = paginator.page(paginator.num_pages)
+
+    return render(
+        request,
+        template_name='sorted_catalog.html',
         context={
             'flowers': flowers
         }

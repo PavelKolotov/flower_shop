@@ -118,6 +118,13 @@ input::placeholder {
 	background: #17CF97;
 	color: #FFFFFF;
 }
+.smallBtn {
+	width: 20%;
+	height: 57px;
+	background: #D9FAF1;
+	color: #17CF97;
+	margin-top: 30px;
+}
 .fic {
 	display: flex;
 	align-items: center;
