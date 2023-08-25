@@ -857,6 +857,7 @@ opacity: 0.3;
     display: inline-block;
     vertical-align: top;
     margin-right: 5px;
+    margin-bottom: 5px;
     position: relative;
     overflow: hidden;
 }
