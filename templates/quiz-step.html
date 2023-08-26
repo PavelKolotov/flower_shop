@@ -36,7 +36,6 @@
 						{% for price in price_categories %}
 							<a href="{% url 'quiz_result' category=price.title reason=reason %}">
 								<button class="quiz__elem">{{ price.title }}</button>
-								{{reason }}
 							</a>
 						{% endfor %}
 					</div>
