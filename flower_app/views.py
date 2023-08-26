@@ -1,8 +1,10 @@
-from django.shortcuts import render, redirect, get_object_or_404
+from django.shortcuts import render, redirect, get_object_or_404, get_list_or_404
 from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
-from .models import Bouquet, DeliveryTimeSlot, Client, Order, BouquetOrder, Reason, PriceCategory
-from .forms import OrderForm
+from .models import Bouquet, Consultation, Client, Order, BouquetOrder, Reason, PriceCategory
+from .forms import OrderForm, ConsultationForm
 import random
+from django.contrib.auth.decorators import user_passes_test
+
 
 def index(request):
     flowers = Bouquet.objects.order_by('?')[:3]
@@ -10,6 +12,7 @@ def index(request):
         'is_index_page': True,
         'flowers': flowers
     }
+
     return render(request, 'index.html', context)
 
 
@@ -151,3 +154,29 @@ def quiz_result(request, reason, category):
         bouquet = None
     context = {'bouquet': bouquet}
     return render(request, 'result.html', context)
+
+
+def is_manager(user):
+    return user.is_staff
+
+
+def create_consultation(request):
+    if request.method == "POST":
+        form = ConsultationForm(request.POST)
+
+        if form.is_valid():
+            name = form.cleaned_data['fname']
+            phone = form.cleaned_data['tel']
+            consult, created = Consultation.objects.get_or_create(phone=phone, defaults={'name': name})
+
+            consult.name = name
+            consult.save()
+
+    return render(request, 'index.html')
+
+
+@user_passes_test(is_manager, login_url='admin:login')
+def consultations(request):
+    consults = get_list_or_404(Consultation.objects.order_by('-status'))
+
+    return render(request, 'consults.html', {'consultations': consults})

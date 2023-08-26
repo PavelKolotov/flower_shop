@@ -1,0 +1,38 @@
+{% extends 'layout.html' %}
+{% block title %}Заявки на консультацию{% endblock %}
+{% block content %}
+  <center>
+    <h2>Все заявки</h2>
+  </center>
+  <hr/>
+  <br/>
+  <br/>
+  <div class="container">
+   <table class="table table-responsive" width="100%", border="">
+    <tr>
+      <th>ID</th>
+      <th>Статус</th>
+      <th>Имя</th>
+      <th>Телефон</th>
+      <th>Дата подачи</th>
+      <th>Ссылка на админку</th>
+    </tr>
+
+    {% for consultation in consultations %}
+      <tr>
+        <td>{{ consultation.id }}</td>
+        <td>{{ consultation.status }}</td>
+        <td>{{ consultation.name }}</td>
+        <td>{{ consultation.phone }}</td>
+        <td>{{ consultation.date }}</td>
+        <td>
+          <a href="{% url "admin:flower_app_consultation_change" object_id=consultation.id%}?next={{ request.get_full_path|urlencode }}">
+            Редактировать
+          </a>
+        </td>
+      </tr>
+    {% endfor %}
+    
+   </table>
+  </div>
+{% endblock %}
