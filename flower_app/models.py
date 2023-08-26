@@ -27,6 +27,19 @@ class DeliveryTimeSlot(models.Model):
         verbose_name = 'Временной интервал'
 
 
+class BouquetQuerySet(models.QuerySet):
+    def get_price_category(self, category, reason):
+        if not category.min and not category.max:
+            price_category = self.filter(reason=reason)
+        elif not category.min:
+            price_category = self.filter(price__lte=category.max, reason=reason)
+        elif not category.max:
+            price_category = self.filter(price__gt=category.min, reason=reason)
+        else:
+            price_category = self.filter(price__gt=category.min, price__lte=category.max, reason=reason)
+        return price_category
+
+
 class Bouquet(models.Model):
     title = models.CharField('Название', max_length=100, null=True)
     price = models.FloatField('Цена')
@@ -36,6 +49,8 @@ class Bouquet(models.Model):
     image = models.ImageField('Картинка', blank=True, null=True)
     assortment = models.BooleanField('В наличии', default=True)
     reason = models.ForeignKey('Reason', on_delete=models.CASCADE, related_name='bouquets')
+
+    objects = BouquetQuerySet.as_manager()
 
     def __str__(self):
         return self.title
@@ -124,3 +139,16 @@ class Order(models.Model):
     class Meta:
         verbose_name_plural = 'Заказы'
         verbose_name = 'Заказ'
+
+
+class PriceCategory(models.Model):
+    title = models.CharField('Ценовая категория', max_length=100,)
+    min = models.IntegerField('Минимальная цена', blank=True, null=True)
+    max = models.IntegerField('Максимальная цена', blank=True, null=True)
+
+    def __str__(self):
+        return self.title
+
+    class Meta:
+        verbose_name = 'Категория'
+        verbose_name_plural = 'Категории цен'

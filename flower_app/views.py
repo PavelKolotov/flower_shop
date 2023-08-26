@@ -1,7 +1,8 @@
 from django.shortcuts import render, redirect, get_object_or_404
 from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
-from .models import Bouquet, DeliveryTimeSlot, Client, Order, BouquetOrder, Reason
+from .models import Bouquet, DeliveryTimeSlot, Client, Order, BouquetOrder, Reason, PriceCategory
 from .forms import OrderForm
+import random
 
 def index(request):
     flowers = Bouquet.objects.order_by('?')[:3]
@@ -121,3 +122,32 @@ def order_result(request, id):
             'flower': flower,
         }
     )
+
+
+def quiz(request):
+    reasons = Reason.objects.all()
+    context = {
+        'reasons': reasons
+    }
+    return render(request, 'quiz.html', context)
+
+
+def quiz_step(request, reason):
+    price_categories = PriceCategory.objects.all()
+    context = {
+        'price_categories': price_categories,
+        'reason': reason,
+    }
+    return render(request, 'quiz-step.html', context)
+
+
+def quiz_result(request, reason, category):
+    reason = Reason.objects.filter(title=reason).first()
+    category = PriceCategory.objects.filter(title=category).first()
+    bouquets = Bouquet.objects.get_price_category(category, reason)
+    if bouquets:
+        bouquet = random.choice(bouquets)
+    else:
+        bouquet = None
+    context = {'bouquet': bouquet}
+    return render(request, 'result.html', context)

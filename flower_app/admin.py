@@ -55,3 +55,8 @@ class OrderAdmin(admin.ModelAdmin):
     search_help_text = 'Поиск по id клиента'
     list_filter = ['date', 'status', 'staff']
     list_display = ['client_id', 'id', 'status', 'date']
+
+
+@admin.register(models.PriceCategory)
+class PriceCategoryAdmin(admin.ModelAdmin):
+    fields = ['title', 'min', 'max']
