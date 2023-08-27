@@ -75,23 +75,4 @@ Flower Shop
 		</div>
 	</div>
 </section>
-<section id="consultation">
-	<div class="container">
-		<div class="consultation">
-			<div class="title consultation__title">Оставьте заявку на консультацию</div>
-			<form action="{% url 'create_consultation' %}" method="post" class="consultation__form">
-                {% csrf_token %}
-				<input type="text" name="fname" class="consultation__form_input" placeholder="Введите Имя" required>
-				<input type="text" name="tel" class="consultation__form_input" placeholder="+ 7 (999) 000 00 00"
-					   required>
-				  <button type="submit" class="consultation__form_btn">Отправить</button>
-				<div class="chekbox fic">
-					<input type="checkbox" class="singUpConsultation__ckekbox" checked required>
-					<span style="color: black;" class="chekbox__intro">Я согласен(а) с политикой конфидециоальности</span>
-				</div>
-
-			</form>
-		</div>
-	</div>
-</section>
 {% endblock content %}

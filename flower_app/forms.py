@@ -61,6 +61,7 @@ class ConsultationForm(forms.ModelForm):
         }
     )
 
+
     class Meta:
         model = Consultation
         fields = ['fname', 'tel']

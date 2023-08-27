@@ -1,5 +1,6 @@
 from django.shortcuts import render, redirect, get_object_or_404, get_list_or_404
 from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
+from django.http import HttpResponseRedirect
 from .models import Bouquet, Consultation, Client, Order, BouquetOrder, Reason, PriceCategory
 from .forms import OrderForm, ConsultationForm
 import random
@@ -9,6 +10,7 @@ from django.contrib.auth.decorators import user_passes_test
 def index(request):
     flowers = Bouquet.objects.order_by('?')[:3]
     context = {
+        'is_consultation':  True,
         'is_index_page': True,
         'flowers': flowers
     }
@@ -33,6 +35,7 @@ def catalog_api(request):
         request,
         template_name='catalog.html',
         context={
+            'is_consultation': True,
             'flowers': flowers,
             'reasons': reasons,
         }
@@ -55,6 +58,7 @@ def catalog_sorted(request, reason):
         request,
         template_name='sorted_catalog.html',
         context={
+            'is_consultation': True,
             'flowers': flowers,
             'reason': reason
         }
@@ -67,6 +71,7 @@ def card(request, id):
         request,
         template_name='card.html',
         context={
+            'is_consultation': True,
             'flower': flower
         }
     )
@@ -130,7 +135,8 @@ def order_result(request, id):
 def quiz(request):
     reasons = Reason.objects.all()
     context = {
-        'reasons': reasons
+        'reasons': reasons,
+        'is_quiz_page': True,
     }
     return render(request, 'quiz.html', context)
 
@@ -140,6 +146,7 @@ def quiz_step(request, reason):
     context = {
         'price_categories': price_categories,
         'reason': reason,
+        'is_quiz_page': True,
     }
     return render(request, 'quiz-step.html', context)
 
@@ -152,7 +159,10 @@ def quiz_result(request, reason, category):
         bouquet = random.choice(bouquets)
     else:
         bouquet = None
-    context = {'bouquet': bouquet}
+    context = {
+        'bouquet': bouquet,
+        'is_consultation':  True,
+    }
     return render(request, 'result.html', context)
 
 
@@ -172,7 +182,28 @@ def create_consultation(request):
             consult.name = name
             consult.save()
 
-    return render(request, 'index.html')
+            return redirect('consultation_result', id=consult.id)
+    else:
+        form = OrderForm()
+
+    referer = request.META.get('HTTP_REFERER', '/')
+    context = {
+        'form': form,
+    }
+
+    return redirect(referer, context)
+
+
+def consultation_result(request, id):
+    consultation = get_object_or_404(Consultation, id=id)
+
+    return render(
+        request,
+        template_name='consultation_result.html',
+        context={
+            'consultation': consultation,
+        }
+    )
 
 
 @user_passes_test(is_manager, login_url='admin:login')
