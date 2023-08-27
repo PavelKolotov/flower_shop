@@ -1,5 +1,8 @@
 from django.contrib import admin
 from flower_app import models
+from django.http import HttpResponseRedirect
+from django.utils.http import url_has_allowed_host_and_scheme
+from django.utils.encoding import iri_to_uri
 
 
 class BouquetOrderInline(admin.TabularInline):
@@ -60,3 +63,20 @@ class OrderAdmin(admin.ModelAdmin):
 @admin.register(models.PriceCategory)
 class PriceCategoryAdmin(admin.ModelAdmin):
     fields = ['title', 'min', 'max']
+
+
+@admin.register(models.Consultation)
+class ConsultationAdmin(admin.ModelAdmin):
+    list_display = ['status', 'name', 'phone', 'date']
+    list_filter = ['status', 'date']
+
+    def response_post_save_change(self, request, obj):
+        response = super(ConsultationAdmin, self).response_post_save_change(request, obj)
+        if "next" in request.GET:
+            if url_has_allowed_host_and_scheme(request.GET['next'], None):
+                url = iri_to_uri(request.GET['next'])
+            else:
+                raise
+            return HttpResponseRedirect(url)
+        else:
+            return response

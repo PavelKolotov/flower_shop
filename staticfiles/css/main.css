@@ -916,3 +916,13 @@ opacity: 0.3;
 .categories__item--9 {
     background-color: rgb(255, 153, 255);
 }
+
+.table {
+	border: solid 1px #17CF97;
+	font-size: 14px;
+	border-collapse: collapse;
+}
+
+.th, td {
+   padding: 5px 5px;
+}

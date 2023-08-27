@@ -2,6 +2,7 @@ from django.db import models
 from phonenumber_field.modelfields import PhoneNumberField
 from tinymce.models import HTMLField
 from django.utils import timezone
+from django.utils.translation import gettext_lazy as _
 
 
 class Reason(models.Model):
@@ -152,3 +153,28 @@ class PriceCategory(models.Model):
     class Meta:
         verbose_name = 'Категория'
         verbose_name_plural = 'Категории цен'
+
+
+class Consultation(models.Model):
+
+    class Status(models.TextChoices):
+        UNPROCESSED = "UN", _("Необработана")
+        COMPLETED = "OK", _("Выполнена")
+
+    status = models.CharField(
+        verbose_name="статус",
+        max_length=2,
+        choices=Status.choices,
+        default=Status.UNPROCESSED,
+        db_index=True
+    )
+    name = models.CharField('Имя', max_length=50)
+    phone = PhoneNumberField('Телефон', unique=True)
+    date = models.DateTimeField('Дата подачи', default=timezone.now)
+
+    def __str__(self):
+        return f'{self.name} {self.phone}'
+
+    class Meta:
+        verbose_name = 'Заявка на консультацию'
+        verbose_name_plural = 'Заявки на консультацию'
