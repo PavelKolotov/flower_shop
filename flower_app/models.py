@@ -158,7 +158,7 @@ class PriceCategory(models.Model):
 class Consultation(models.Model):
 
     class Status(models.TextChoices):
-        UNPROCESSED = "UN", _("Необработана")
+        UNPROCESSED = "UN", _("Не обработана")
         COMPLETED = "OK", _("Выполнена")
 
     status = models.CharField(
@@ -168,12 +168,17 @@ class Consultation(models.Model):
         default=Status.UNPROCESSED,
         db_index=True
     )
-    name = models.CharField('Имя', max_length=50)
-    phone = PhoneNumberField('Телефон', unique=True)
+    client = models.ForeignKey(
+        'Client',
+        on_delete=models.CASCADE,
+        verbose_name='Клиент',
+        related_name='consultations',
+        null=True
+    )
     date = models.DateTimeField('Дата подачи', default=timezone.now)
 
     def __str__(self):
-        return f'{self.name} {self.phone}'
+        return f'{self.client.name} {self.client.phone}'
 
     class Meta:
         verbose_name = 'Заявка на консультацию'

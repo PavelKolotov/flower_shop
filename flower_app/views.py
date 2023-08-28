@@ -177,10 +177,8 @@ def create_consultation(request):
         if form.is_valid():
             name = form.cleaned_data['fname']
             phone = form.cleaned_data['tel']
-            consult, created = Consultation.objects.get_or_create(phone=phone, defaults={'name': name})
-
-            consult.name = name
-            consult.save()
+            client, created = Client.objects.update_or_create(phone=phone, defaults={'name': name})
+            consult, created = Consultation.objects.filter(status='UN').update_or_create(client=client)
 
             return redirect('consultation_result', id=consult.id)
     else:
