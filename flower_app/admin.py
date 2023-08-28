@@ -67,7 +67,7 @@ class PriceCategoryAdmin(admin.ModelAdmin):
 
 @admin.register(models.Consultation)
 class ConsultationAdmin(admin.ModelAdmin):
-    list_display = ['status', 'name', 'phone', 'date']
+    list_display = ['status', 'client', 'date',]
     list_filter = ['status', 'date']
 
     def response_post_save_change(self, request, obj):
@@ -80,3 +80,11 @@ class ConsultationAdmin(admin.ModelAdmin):
             return HttpResponseRedirect(url)
         else:
             return response
+
+    def get_readonly_fields(self, request, obj):
+        # Страховка от более чем одной позиции в необработанных
+        if obj.status == 'UN':
+            return []
+        else:
+            return ['status', ]
+
