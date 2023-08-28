@@ -24,8 +24,8 @@
             <tr>
                 <td>{{ consultation.id }}</td>
                 <td>{{ consultation.status }}</td>
-                <td>{{ consultation.name }}</td>
-                <td>{{ consultation.phone }}</td>
+                <td>{{ consultation.client.name }}</td>
+                <td>{{ consultation.client.phone }}</td>
                 <td>{{ consultation.date }}</td>
                 <td>
                   <a href="{% url "admin:flower_app_consultation_change" object_id=consultation.id%}?next={{ request.get_full_path|urlencode }}">
