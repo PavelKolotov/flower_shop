@@ -69,6 +69,7 @@ class PriceCategoryAdmin(admin.ModelAdmin):
 class ConsultationAdmin(admin.ModelAdmin):
     list_display = ['status', 'client', 'date',]
     list_filter = ['status', 'date']
+    fields = ['client', 'date', 'status',]
 
     def response_post_save_change(self, request, obj):
         response = super(ConsultationAdmin, self).response_post_save_change(request, obj)
