@@ -33,5 +33,6 @@ urlpatterns = [
     path('quiz_result/<str:reason>/<str:category>/', views.quiz_result, name='quiz_result'),
     path('manager/consults/', views.consultations, name='consultations'),
     path('consult/', views.create_consultation, name='create_consultation'),
-    path('consultation_result/<int:id>/', views.consultation_result, name='consultation_result')
+    path('consultation_result/<int:id>/', views.consultation_result, name='consultation_result'),
+    path('info/', views.company_info, name='info')
 ] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

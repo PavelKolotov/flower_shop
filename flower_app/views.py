@@ -209,3 +209,23 @@ def consultations(request):
     consults = get_list_or_404(Consultation.objects.order_by('-status'))
 
     return render(request, 'consults.html', {'consultations': consults})
+
+
+def company_info(request):
+    context = {
+        'info': f'''
+    Количество наших клиентов: <i>{Client.objects.count()}</i><br>
+    Количество заказов: <i>{Order.objects.count()}</i><br>
+    из них выполнено: <i>{Order.objects.filter(status=False).count()}</i> и 
+    <i>{Order.objects.filter(status=True).count()}</i> обрабатывается<br>
+    Количество заявок на консультацию: <i>{Consultation.objects.count()}</i><br>
+    Обрабатываемые заявки на консультацию: <i>{Consultation.objects.filter(status='UN').count()}</i><br>
+    Обработанные заявки на консультацию: <i>{Consultation.objects.filter(status='OK').count()}</i><br>
+'''
+    }
+
+    return render(
+        request,
+        template_name='info.html',
+        context=context,
+    )

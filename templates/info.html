@@ -1,0 +1,18 @@
+{% extends "layout.html" %}
+{% load static %}
+{% block title %}
+    Общая информация
+{% endblock title %}
+{% block content %}
+<section id="card">
+    <div class="container">
+        <div class="card ficb">
+            <div class="card__block card__block_sec">
+                {% autoescape off %}
+                    {{ info }}
+                {% endautoescape %}
+            </div>
+        </div>
+    </div>
+</section>
+{% endblock content %}
