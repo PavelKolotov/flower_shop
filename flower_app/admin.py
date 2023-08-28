@@ -82,6 +82,8 @@ class ConsultationAdmin(admin.ModelAdmin):
             return response
 
     def get_readonly_fields(self, request, obj):
+        if not obj:
+            return []
         # Страховка от более чем одной позиции в необработанных
         if obj.status == 'UN':
             return []
